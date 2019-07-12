@@ -19,16 +19,16 @@ class App extends React.Component {
     const name= event.target['person-name'].value;
     console.log(name)
     event.target['person-name'].value = ''; 
-    this.componentDidMount(name);  
+    this.componentDidMount(name); 
 
   }
 
   
   componentDidMount = (name) => {
-    // const name='luke'
+    
     fetch(`https://swapi.co/api/people/?search=${name}`)
-    .then(response => {
-      if (!response.ok) {
+    .then(response => {     
+      if (!response.ok) {       
         throw new Error(response.statusText);
       }
       return response.json();
@@ -39,11 +39,11 @@ class App extends React.Component {
         people: data.results,
       });
     })
-    // .catch(error => {
-    //   this.setState({
-    //     error: error.message
-    //   });
-    // });
+    .catch(error => {
+      this.setState({
+        error: error.message
+      });
+    });
   }
 
  
