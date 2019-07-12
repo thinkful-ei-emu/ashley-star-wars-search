@@ -8,15 +8,25 @@
   pointer-events: none;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+label {
+  font-size: 3vw;
+  padding: 5%;
+}
+
+main {
+  font-family: 'DM Serif Text', serif;
+}
+
+input {
+  margin-top: 2%;
+  width: 20%;
+}
+
+li {
+  list-style: none;
+  font-size: 2vw;
+  font-family: 'Muli', sans-serif;
+  padding: 2%;
 }
 
 .App-link {

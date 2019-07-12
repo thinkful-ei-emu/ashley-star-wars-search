@@ -1,26 +1,66 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import SearchForm from './searchForm';
+import NameList from './nameList';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    
+    this.state = { 
+      people: [],
+    };
+    
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    console.log('handlesubmit ran');
+    const name= event.target['person-name'].value;
+    console.log(name)
+    event.target['person-name'].value = ''; 
+    this.componentDidMount(name);  
+
+  }
+
+  
+  componentDidMount = (name) => {
+    // const name='luke'
+    fetch(`https://swapi.co/api/people/?search=${name}`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+      return response.json();
+    })
+    .then(data=> {
+     
+      this.setState({
+        people: data.results,
+      });
+    })
+    // .catch(error => {
+    //   this.setState({
+    //     error: error.message
+    //   });
+    // });
+  }
+
+ 
+
+  render() {
+    return (
+      <div className="App">
+        <main>
+          <SearchForm handleSubmit={this.handleSubmit}/>
+          <NameList people={this.state.people}/>
+        </main>
+      </div>
+    );
+
+    
+  }
+  
 }
 
 export default App;
